@@ -53,51 +53,82 @@ body{
 }
 
 .hero{
-  background:linear-gradient(135deg,#0F172A 0%,#1E3A8A 100%);
-  padding:10px 10px 10px;
+
+  background:
+  linear-gradient(
+    135deg,
+    #0F172A 0%,
+    #1E3A8A 100%
+  );
+
+  padding:8px 16px 10px;
+
   text-align:center;
+
   position:relative;
+
   overflow:hidden;
+
 }
 
 .hero::before{
+
   content:"";
+
   position:absolute;
-  width:220px;
-  height:220px;
+
+  width:180px;
+  height:180px;
+
   border-radius:50%;
-  background:rgba(255,255,255,0.05);
-  top:-130px;
-  right:-80px;
+
+  background:
+  rgba(255,255,255,0.05);
+
+  top:-100px;
+  right:-70px;
+
 }
 
 .logo{
-  width:150px;
+
+  width:120px;
+
   max-width:100%;
-  margin:auto auto 10px;
+
+  margin:auto auto 6px;
+
   display:block;
-  position:relative;
-  z-index:2;
+
 }
 
 .hero h1{
-  font-size:28px;
-  line-height:1.25;
+
+  font-size:24px;
+
+  line-height:1.2;
+
   font-weight:800;
+
   color:white;
-  margin-bottom:8px;
-  position:relative;
-  z-index:2;
+
+  margin-bottom:4px;
+
 }
 
 .hero p{
-  max-width:620px;
+
+  max-width:520px;
+
   margin:auto;
-  font-size:16px;
-  line-height:1.55;
-  color:rgba(255,255,255,0.92);
-  position:relative;
-  z-index:2;
+
+  font-size:13px;
+
+  line-height:1.45;
+
+  color:
+  rgba(255,255,255,0.92);
+
 }
 
 .content{
