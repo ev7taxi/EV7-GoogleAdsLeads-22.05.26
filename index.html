@@ -1,15 +1,367 @@
-<!DOCTYPE html>
-<html>
-<head>
-  <title>TEST</title>
-</head>
-<body>
-
-<h1>เว็บทำงาน</h1>
-
 <script>
-console.log("JS RUNNING");
-</script>
 
-</body>
-</html>
+const SCRIPT_URL =
+'https://script.google.com/macros/s/AKfycbwC278YHh-j-2wXjIYYuNMVTCiE3s7sz5y8zdMT9pdQgqRGJeRdG_0c53V2Ug1Y1K_y-g/exec';
+
+const ageSelect =
+document.querySelector('select[name="age"]');
+
+for(let i=18; i<=70; i++){
+
+  const option =
+  document.createElement('option');
+
+  option.value = i;
+
+  option.textContent = `${i} ปี`;
+
+  ageSelect.appendChild(option);
+
+}
+
+const params =
+new URLSearchParams(
+window.location.search
+);
+
+document.getElementById('adsid').value =
+
+params.get('gclid') ||
+params.get('utm_id') ||
+params.get('ad_id') ||
+'organic';
+
+const phoneInput =
+document.querySelector(
+'input[name="phone"]'
+);
+
+phoneInput.addEventListener(
+'input',
+function(e){
+
+  let value =
+  e.target.value.replace(/\D/g,'');
+
+  if(value.length > 10){
+
+    value =
+    value.slice(0,10);
+
+  }
+
+  if(value.length > 6){
+
+    value =
+    value.replace(
+      /(\d{3})(\d{3})(\d+)/,
+      '$1-$2-$3'
+    );
+
+  }
+
+  else if(value.length > 3){
+
+    value =
+    value.replace(
+      /(\d{3})(\d+)/,
+      '$1-$2'
+    );
+
+  }
+
+  e.target.value = value;
+
+});
+
+function removeErrors(){
+
+  document
+  .querySelectorAll('.error-message')
+  .forEach(el => el.remove());
+
+  document
+  .querySelectorAll('.error-field')
+  .forEach(el => {
+
+    el.classList.remove('error-field');
+
+  });
+
+}
+
+function createError(element,message){
+
+  element.classList.add(
+    'error-field'
+  );
+
+  const error =
+  document.createElement('div');
+
+  error.className =
+  'error-message';
+
+  error.innerText =
+  message;
+
+  error.style.color =
+  '#DC2626';
+
+  error.style.fontSize =
+  '13px';
+
+  error.style.fontWeight =
+  '700';
+
+  error.style.marginTop =
+  '8px';
+
+  element.appendChild(error);
+
+}
+
+document
+.getElementById('leadForm')
+
+.addEventListener(
+'submit',
+
+async function(e){
+
+  e.preventDefault();
+
+  removeErrors();
+
+  let isValid = true;
+
+  const submitBtn =
+  document.getElementById('submitBtn');
+
+  const phoneField =
+  document.querySelector(
+    'input[name="phone"]'
+  );
+
+  const phoneContainer =
+  phoneField.closest(
+    '.form-group'
+  );
+
+  const phone =
+  phoneField.value
+  .replace(/\D/g,'');
+
+  if(phone.length !== 10){
+
+    createError(
+      phoneContainer,
+      'กรุณากรอกเบอร์โทรศัพท์ให้ครบ 10 หลัก'
+    );
+
+    isValid = false;
+
+  }
+
+  const apps =
+  document.querySelectorAll(
+    'input[name="apps"]:checked'
+  );
+
+  const checkboxGrid =
+  document.querySelector(
+    '.checkbox-grid'
+  );
+
+  if(apps.length === 0){
+
+    createError(
+      checkboxGrid,
+      'กรุณาเลือกอย่างน้อย 1 รายการ'
+    );
+
+    isValid = false;
+
+  }
+
+  const pdpa =
+  document.querySelector(
+    'input[name="pdpa"]'
+  );
+
+  const pdpaContainer =
+  pdpa.closest(
+    '.consent-item'
+  );
+
+  if(!pdpa.checked){
+
+    createError(
+      pdpaContainer,
+      'ท่านยังไม่ได้กดยินยอม'
+    );
+
+    isValid = false;
+
+  }
+
+  const marketing =
+  document.querySelector(
+    'input[name="marketing"]'
+  );
+
+  const marketingContainer =
+  marketing.closest(
+    '.consent-item'
+  );
+
+  if(!marketing.checked){
+
+    createError(
+      marketingContainer,
+      'ท่านยังไม่ได้กดยินยอม'
+    );
+
+    isValid = false;
+
+  }
+
+  if(!isValid){
+
+    const firstError =
+    document.querySelector(
+      '.error-message'
+    );
+
+    if(firstError){
+
+      firstError.scrollIntoView({
+
+        behavior:'smooth',
+        block:'center'
+
+      });
+
+    }
+
+    return;
+
+  }
+
+  submitBtn.disabled = true;
+
+  submitBtn.innerHTML =
+  'กำลังส่งข้อมูล...';
+
+  const formData =
+  new FormData(this);
+
+  const data = {
+
+    fullname:
+    formData.get('fullname'),
+
+    phone:
+    phone,
+
+    age:
+    formData.get('age'),
+
+    idcard:
+    formData.get('idcard'),
+
+    publicLicense:
+    formData.get('publicLicense'),
+
+    privateLicense:
+    formData.get('privateLicense'),
+
+    statement:
+    formData.get('statement'),
+
+    apps:
+    formData.getAll('apps'),
+
+    pdpa:
+    'Yes',
+
+    marketing:
+    'Yes',
+
+    adsid:
+    formData.get('adsid'),
+
+    timestamp:
+    new Date().toISOString(),
+
+    source:
+    'EV7 Landing Page'
+
+  };
+
+  try{
+
+    const response =
+    await fetch(
+      SCRIPT_URL,
+      {
+        method:'POST',
+        headers:{
+          'Content-Type':
+          'application/json'
+        },
+        body:
+        JSON.stringify(data)
+      }
+    );
+
+    const result =
+    await response.json();
+
+    if(result.status === 'success'){
+
+      document
+      .getElementById('formBody')
+      .style.display = 'none';
+
+      document
+      .getElementById('successMessage')
+      .style.display = 'block';
+
+      window.scrollTo({
+
+        top:0,
+        behavior:'smooth'
+
+      });
+
+    }
+
+    else{
+
+      throw new Error(
+        result.message
+      );
+
+    }
+
+  }
+
+  catch(error){
+
+    console.error(error);
+
+    alert(
+      'เกิดข้อผิดพลาด กรุณาลองใหม่อีกครั้ง'
+    );
+
+    submitBtn.disabled = false;
+
+    submitBtn.innerHTML =
+    'ตรวจสอบสิทธิ์และรับข้อเสนอ';
+
+  }
+
+});
+
+</script>
