@@ -1,6 +1,3 @@
-ได้ เอาไฟล์นี้วางแทน `index.html` เดิมทั้งไฟล์ได้เลย ปรับจากโค้ดล่าสุดที่แกส่งมา 
-
-```html
 <!DOCTYPE html>
 <html lang="th">
 <head>
@@ -28,7 +25,6 @@
   --orange:#FF6B00;
   --orange-dark:#E85D04;
   --green:#22C55E;
-  --bg:#F4F7FB;
   --white:#FFFFFF;
   --text:#111827;
   --muted:#6B7280;
@@ -108,15 +104,19 @@ body{
   padding:16px;
 }
 
+.badge-wrap{
+  text-align:center;
+}
+
 .badge{
   display:inline-flex;
   align-items:center;
-  gap:4px;
-  padding:6px 12px;
+  justify-content:center;
+  padding:6px 14px;
   border-radius:999px;
   background:#EFF6FF;
   color:#1D4ED8;
-  font-size:13px;
+  font-size:14px;
   font-weight:700;
   margin-bottom:12px;
 }
@@ -142,71 +142,65 @@ body{
 }
 
 .car-grid{
-  display:flex;
-  flex-direction:column;
-  gap:10px;
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:8px;
   margin-bottom:18px;
 }
 
 .car-card{
-  display:grid;
-  grid-template-columns:92px 1fr auto;
-  align-items:center;
-  gap:10px;
+  aspect-ratio:1/1;
   border:1px solid var(--border);
   border-radius:16px;
-  overflow:hidden;
   background:var(--white);
-  padding:10px;
+  padding:8px;
   box-shadow:0 4px 12px rgba(15,23,42,0.05);
-  transition:0.2s ease;
-}
-
-.car-card:hover{
-  transform:none;
-  box-shadow:0 6px 16px rgba(15,23,42,0.08);
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  justify-content:space-between;
+  text-align:center;
 }
 
 .car-image-wrap{
+  width:100%;
+  height:48%;
   background:#F8FAFC;
-  padding:6px;
   border-radius:12px;
+  padding:4px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
 }
 
 .car-image{
   width:100%;
-  height:58px;
+  height:100%;
   object-fit:contain;
   display:block;
 }
 
-.car-content{
-  padding:0;
-}
-
 .car-name{
-  font-size:18px;
+  font-size:13px;
   font-weight:800;
-  margin-bottom:2px;
   line-height:1.2;
+  margin-top:4px;
 }
 
 .car-price{
-  display:inline-flex;
-  align-items:center;
-  justify-content:center;
-  white-space:nowrap;
-  padding:9px 12px;
+  width:100%;
+  padding:6px 4px;
   border-radius:999px;
   background:linear-gradient(135deg,#2563EB,#1D4ED8);
   color:white;
-  font-size:15px;
+  font-size:12px;
   font-weight:800;
+  line-height:1.2;
 }
 
 .features{
   display:grid;
-  grid-template-columns:1fr 1fr;
+  grid-template-columns:1fr;
   gap:8px;
   margin-bottom:18px;
 }
@@ -217,8 +211,8 @@ body{
   border-radius:14px;
   padding:10px;
   display:flex;
-  gap:8px;
-  align-items:flex-start;
+  gap:10px;
+  align-items:center;
 }
 
 .feature-icon{
@@ -235,7 +229,7 @@ body{
 }
 
 .feature-text{
-  font-size:14px;
+  font-size:15px;
   font-weight:700;
   line-height:1.45;
 }
@@ -449,42 +443,23 @@ select:focus{
   }
 
   .car-grid{
-    display:grid;
-    grid-template-columns:repeat(3,1fr);
     gap:14px;
   }
 
   .car-card{
-    display:block;
-    padding:0;
-  }
-
-  .car-image-wrap{
-    border-radius:0;
     padding:14px;
-  }
-
-  .car-image{
-    height:110px;
-  }
-
-  .car-content{
-    padding:14px 14px 0;
   }
 
   .car-name{
     font-size:20px;
-    margin-bottom:8px;
   }
 
   .car-price{
-    margin:0 14px 14px;
     font-size:16px;
-    padding:9px 14px;
+    padding:9px 12px;
   }
 
   .features{
-    grid-template-columns:repeat(3,1fr);
     gap:10px;
   }
 
@@ -530,8 +505,10 @@ select:focus{
 
     <div class="content" id="formBody">
 
-      <div class="badge">
-        EV7 Taxi แท็กซี่ไฟฟ้า
+      <div class="badge-wrap">
+        <div class="badge">
+          EV7 Taxi แท็กซี่ไฟฟ้า
+        </div>
       </div>
 
       <div class="section-title">
@@ -541,7 +518,6 @@ select:focus{
       <div class="car-grid">
 
         <div class="car-card">
-
           <div class="car-image-wrap">
             <img
               src="image/EV7-AION-ES_45-Front.png"
@@ -549,17 +525,11 @@ select:focus{
               alt="EV7 ES"
             >
           </div>
-
-          <div class="car-content">
-            <div class="car-name">ES</div>
-          </div>
-
-          <div class="car-price">777 บาท/วัน</div>
-
+          <div class="car-name">ES</div>
+          <div class="car-price">777/วัน</div>
         </div>
 
         <div class="car-card">
-
           <div class="car-image-wrap">
             <img
               src="image/EV7_AION-YP_Front-45.png"
@@ -567,17 +537,11 @@ select:focus{
               alt="EV7 Y Plus 410"
             >
           </div>
-
-          <div class="car-content">
-            <div class="car-name">Y Plus 410</div>
-          </div>
-
-          <div class="car-price">799 บาท/วัน</div>
-
+          <div class="car-name">Y Plus 410</div>
+          <div class="car-price">799/วัน</div>
         </div>
 
         <div class="car-card">
-
           <div class="car-image-wrap">
             <img
               src="image/EV7_AION-YP_Front-45.png"
@@ -585,13 +549,8 @@ select:focus{
               alt="EV7 Y Plus 490"
             >
           </div>
-
-          <div class="car-content">
-            <div class="car-name">Y Plus 490</div>
-          </div>
-
-          <div class="car-price">888 บาท/วัน</div>
-
+          <div class="car-name">Y Plus 490</div>
+          <div class="car-price">888/วัน</div>
         </div>
 
       </div>
@@ -619,7 +578,7 @@ select:focus{
 
         <div class="feature">
           <div class="feature-icon">🛡️</div>
-          <div class="feature-text">ฟรีประกันภัย ภาษี และ พ.ร.บ. ตลอดอายุสัญญา</div>
+          <div class="feature-text">ฟรีประกันภัย, ภาษี และ พ.ร.บ. ตลอดอายุสัญญา</div>
         </div>
 
         <div class="feature">
@@ -832,13 +791,8 @@ select:focus{
     </div>
 
     <div class="success" id="successMessage">
-
       <h2>ส่งข้อมูลสำเร็จ 🎉</h2>
-
-      <p>
-        เจ้าหน้าที่จะติดต่อกลับภายใน 24 ชั่วโมง
-      </p>
-
+      <p>เจ้าหน้าที่จะติดต่อกลับภายใน 24 ชั่วโมง</p>
     </div>
 
   </div>
@@ -1034,4 +988,3 @@ document.getElementById('leadForm').addEventListener('submit', async function(e)
 
 </body>
 </html>
-```
